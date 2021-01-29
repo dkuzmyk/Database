@@ -1,0 +1,37 @@
+simple:
+
+- Display the number of conviction grouped by result
+
+select verdict, count(*)
+from conviction
+group by verdict;
+
+- Find all crime IDs and the type of crime they represent 
+
+select ID, type from crime
+
+- Find all people who had a role of bribe
+
+select * from person where role='Bribe'
+
+complex:
+
+- List all the convicted people
+
+Select CID, person.SSN, name from conviction, person where person.SSN = conviction.SSN
+
+- Show all people involved in corruption
+
+select person.SSN, name, age, type, crime.ID, CID from person, crime, conviction where type like '%corruption%' and crime.ID = conviction.ID and conviction.SSN = person.SSN"
+
+- List all convicted individuals of a specific age range (use age=40, age<20, age>92 or age>20 and age<30)
+
+"select conviction.CID, person.name, person.age from person, conviction, crime where person.SSN = conviction.SSN and crime.ID = conviction.ID and "+var+"";
+
+- List all people convicted by a specific case status (eg. Concluded, Investigating) 
+
+select person.SSN, name, status, verdict from person, conviction
+where person.SSN = conviction.SSN
+and status='Concluded'
+
+- List all people of a specific role for every crime (eg. Bribe, Tax Evasion)
